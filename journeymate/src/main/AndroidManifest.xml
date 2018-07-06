@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.journeymate">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyB4cuf9ZDVBUCg_7E23oqHkpQ0aIpD-_Pg" />
+
+        <service
+            android:name=".Services.SensorLocationService"
+            android:exported="false">
+        </service>
+
+        <service android:name=".Services.DetectedActivitiesIntentService" />
+
+        <receiver
+            android:name=".Receivers.LocationServiceAutoStartReceiver">
+        </receiver>
+
+        <receiver android:name=".Receivers.TransitionReceiver"/>
+
+        <receiver android:name=".Receivers.WatchLocationServiceReceiver">
+        </receiver>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3e3db809de285634b25f9c2727c8854ff54353d7"
+            />
+    </application>
+
+
+</manifest>
+
