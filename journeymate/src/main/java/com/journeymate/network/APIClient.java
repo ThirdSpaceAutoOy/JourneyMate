@@ -32,12 +32,12 @@ public class APIClient {
             new OkHttpClient.Builder();
 
     public static <S> S createService(Class<S> serviceClass) {
-
-        if(BuildConfig.DEBUG_MODE){
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }else{
-            logging.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
+        logging.setLevel(HttpLoggingInterceptor.Level.NONE);
+//        if(BuildConfig.DEBUG_MODE){
+//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        }else{
+//            logging.setLevel(HttpLoggingInterceptor.Level.NONE);
+//        }
 
         if (!httpClient.interceptors().contains(logging)) {
             httpClient.addInterceptor(logging);

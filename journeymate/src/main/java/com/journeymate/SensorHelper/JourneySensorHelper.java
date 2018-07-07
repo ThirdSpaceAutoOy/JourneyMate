@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
+
 import com.journeymate.Utils.LogUtils;
 import com.journeymate.Utils.PreferencesManager;
 import com.journeymate.Utils.StringConstants;
@@ -225,54 +226,54 @@ public class JourneySensorHelper implements SensorEventListener {
 
 //        if (Math.abs(lastServiceUpdateTime - currentTimestamp) > 30 * 1000) {
 
-            // if last updated activity time was 7 mins ago, change activity to still
-            //user might be sleeping or phone is stationary...and stop service
-            if (Math.abs(lastUpdatedActivityTimeStamp - currentTimestamp) > 1000 * 60 * 7) {
-                LogUtils.printLog(TAG, "last timeStamp is more than 7 min");
-                PreferencesManager.putString(StringConstants.KEY_CURRENT_ACTIVITY, "still");
-                PreferencesManager.putInt(StringConstants.PREVIOUS_ACTIVITY_ID, 3);
-                PreferencesManager.putLong("lastActivityUpdate", currentTimestamp);
+        // if last updated activity time was 7 mins ago, change activity to still
+        //user might be sleeping or phone is stationary...and stop service
+        if (Math.abs(lastUpdatedActivityTimeStamp - currentTimestamp) > 1000 * 60 * 7) {
+            LogUtils.printLog(TAG, "last timeStamp is more than 7 min");
+            PreferencesManager.putString(StringConstants.KEY_CURRENT_ACTIVITY, "still");
+            PreferencesManager.putInt(StringConstants.PREVIOUS_ACTIVITY_ID, 3);
+            PreferencesManager.putLong("lastActivityUpdate", currentTimestamp);
+        }
+
+        String currentActivity = PreferencesManager.getString(StringConstants.KEY_CURRENT_ACTIVITY, "");
+        String weather = PreferencesManager.getString(StringConstants.KEY_WEATHER, "");
+        HashMap<String, Object> sensorHashMap = new HashMap<>();
+        sensorHashMap.put("userEmail", userEmail);
+        sensorHashMap.put("timeStamp", currentTimestamp);
+        sensorHashMap.put("activity", currentActivity);
+        sensorHashMap.put("weather_condition", weather);
+
+        if (mLocation != null) {
+            double lat = mLocation.getLatitude();
+            double lng = mLocation.getLongitude();
+            if (lat != 0.0 && lng != 0.0) {
+                sensorHashMap.put("lat", lat);
+                sensorHashMap.put("lng", lng);
+                sensorHashMap.put("alt", mLocation.getAltitude());
+                sensorHashMap.put("speed_of_vehicle", mLocation.getSpeed());
+                sensorHashMap.put("city", locationHelper.getCity());
+
+
+                ApiInterface apiClientInterface = APIClient.createService(ApiInterface.class);
+                Call<ResponseBody> sensorResponse = apiClientInterface.sendSensorData(Utility.getAuth(), sensorHashMap);
+                sensorResponse.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        LogUtils.printLog(TAG, "location-sensor data success!!!");
+                        PreferencesManager.putLong("lastServiceUpdateTime", currentTimestamp);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        LogUtils.printLog(TAG, "location-sensor data failed!!!");
+                        PreferencesManager.putLong("lastServiceUpdateTime", currentTimestamp);
+                    }
+                });
+                sendRawSensorDataToServer(currentTimestamp);
             }
-
-            String currentActivity = PreferencesManager.getString(StringConstants.KEY_CURRENT_ACTIVITY, "");
-            String weather = PreferencesManager.getString(StringConstants.KEY_WEATHER, "");
-            HashMap<String, Object> sensorHashMap = new HashMap<>();
-            sensorHashMap.put("userEmail", userEmail);
-            sensorHashMap.put("timeStamp", currentTimestamp);
-            sensorHashMap.put("activity", currentActivity);
-            sensorHashMap.put("weather_condition", weather);
-
-            if (mLocation != null) {
-                double lat = mLocation.getLatitude();
-                double lng = mLocation.getLongitude();
-                if (lat != 0.0 && lng != 0.0) {
-                    sensorHashMap.put("lat", lat);
-                    sensorHashMap.put("lng", lng);
-                    sensorHashMap.put("alt", mLocation.getAltitude());
-                    sensorHashMap.put("speed_of_vehicle", mLocation.getSpeed());
-                    sensorHashMap.put("city", locationHelper.getCity());
-
-
-                    ApiInterface apiClientInterface = APIClient.createService(ApiInterface.class);
-                    Call<ResponseBody> sensorResponse = apiClientInterface.sendSensorData(Utility.getAuth(), sensorHashMap);
-                    sensorResponse.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            LogUtils.printLog(TAG, "location-sensor data success!!!");
-                            PreferencesManager.putLong("lastServiceUpdateTime", currentTimestamp);
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            LogUtils.printLog(TAG, "location-sensor data failed!!!");
-                            PreferencesManager.putLong("lastServiceUpdateTime", currentTimestamp);
-                        }
-                    });
-                    sendRawSensorDataToServer(currentTimestamp);
-                }
-            } else {
-                locationHelper.init();
-            }
+        } else {
+            locationHelper.init();
+        }
 //        }
     }
 

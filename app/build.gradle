@@ -29,7 +29,8 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
-    implementation 'com.github.ThirdSpaceAutoOy:JourneyMate:737d94af69'
+    implementation 'com.github.ThirdSpaceAutoOy:JourneyMate:bb48cf0719'
+
 
 //    implementation 'com.github.ThirdSpaceAutoOy:JourneyMate:c25a65fad5'
 //    implementation files('libs/journeymate.aar')
