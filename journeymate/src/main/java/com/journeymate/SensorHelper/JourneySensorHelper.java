@@ -215,15 +215,15 @@ public class JourneySensorHelper implements SensorEventListener {
         final long currentTimestamp = System.currentTimeMillis();
         long lastUpdatedActivityTimeStamp = PreferencesManager.getLong("lastActivityUpdate", 0);
         long lastServiceUpdateTime = PreferencesManager.getLong("lastServiceUpdateTime", 0);
-//        LogUtils.printLog(TAG, "lastActivityTime =" + lastUpdatedActivityTimeStamp + " & current = " + currentTimestamp);
-//        LogUtils.printLog(TAG, "lastServiceTime =" + lastServiceUpdateTime + " & current = " + currentTimestamp);
+        LogUtils.printLog(TAG, "lastActivityTime =" + lastUpdatedActivityTimeStamp + " & current = " + currentTimestamp);
+        LogUtils.printLog(TAG, "lastServiceTime =" + lastServiceUpdateTime + " & current = " + currentTimestamp);
 
         mLocation = locationHelper.getLocation();
         if (mLocation == null) {
             locationHelper.init();
         }
 
-        if (Math.abs(lastServiceUpdateTime - currentTimestamp) > 30 * 1000) {
+//        if (Math.abs(lastServiceUpdateTime - currentTimestamp) > 30 * 1000) {
 
             // if last updated activity time was 7 mins ago, change activity to still
             //user might be sleeping or phone is stationary...and stop service
@@ -273,7 +273,7 @@ public class JourneySensorHelper implements SensorEventListener {
             } else {
                 locationHelper.init();
             }
-        }
+//        }
     }
 
 

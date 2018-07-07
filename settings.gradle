@@ -1,1 +1,1 @@
-include ':journeymate'
+include ':app', ':journeymate'
