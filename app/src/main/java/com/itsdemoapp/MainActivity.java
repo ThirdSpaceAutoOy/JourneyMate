@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import com.itsdemoapp.Utils.LogUtils;
 import com.journeymate.JourneyActivity;
+import com.journeymate.Utils.PreferencesManager;
+import com.journeymate.Utils.StringConstants;
 
 public class MainActivity extends AppCompatActivity {
     private String TAG = MainActivity.class.getSimpleName();
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Implement this code to start journeyMate implementation
          * before this make sure you ask location permission.
+         *
+         * init function takes 3 values context, activity and email of user.
          */
 
         JourneyActivity journeyActivity = new JourneyActivity();

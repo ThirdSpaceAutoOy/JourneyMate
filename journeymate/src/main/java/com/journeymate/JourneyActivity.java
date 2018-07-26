@@ -72,16 +72,19 @@ public class JourneyActivity extends Activity {
     private LocationSettingsRequest mLocationSettingsRequest;
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
 
-    public void init(Context context, Activity activity) {
+    public void init(Context context, Activity activity,String email) {
         this.context = context;
         this.activity = activity;
         PreferencesManager.initialize(activity);
         marshMallowPermission = new MarshMallowPermission(activity);
 
+        PreferencesManager.putString(StringConstants.KEY_USER_EMAIL,email);
         //start sensor service
         checkSensorHardware();
         checkLocationPermission();
     }
+
+
 
     private void initService() {
         LogUtils.printLog(TAG, " --- starting Service ---");

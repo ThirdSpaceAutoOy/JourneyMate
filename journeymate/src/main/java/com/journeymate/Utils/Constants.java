@@ -15,10 +15,4 @@ public class Constants {
     public static final String AUDIO_URL = BASE_URL +"/process_audio/";
     public static final String SEND_FCM_TOKEN =  BASE_URL+ "/notification/register/";
     public static final String GET_WEATHER_FORECAST = "http://api.openweathermap.org/data/2.5/weather/";
-
-
-    public static final String VW_BASE_URL =  "http://vwbusseva.eu-central-1.elasticbeanstalk.com";
-    public static final String BUS_STATUS =  VW_BASE_URL + "/transit/bus-status";
-
-
 }

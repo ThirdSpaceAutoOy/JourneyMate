@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.util.Log;
 
 import com.journeymate.Utils.LogUtils;
 import com.journeymate.Utils.PreferencesManager;

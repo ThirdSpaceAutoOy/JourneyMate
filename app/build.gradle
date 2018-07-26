@@ -29,12 +29,9 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
-    implementation 'com.github.ThirdSpaceAutoOy:JourneyMate:aa928f8777'
+//    implementation 'com.github.ThirdSpaceAutoOy:JourneyMate:756f026a11'
 
-
-
-//    implementation 'com.github.ThirdSpaceAutoOy:JourneyMate:c25a65fad5'
-//    implementation files('libs/journeymate.aar')
+    implementation files('libs/journeymate.aar')
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.8.0'
