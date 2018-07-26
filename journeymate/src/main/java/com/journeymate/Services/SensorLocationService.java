@@ -78,7 +78,7 @@ public class SensorLocationService extends Service {
             String channelId = createNotificationChannel();
             Notification notification = new NotificationCompat.Builder(this,channelId)
                     .setOngoing(true)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.ic_tsa)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(Notification.CATEGORY_SERVICE)
                     .build();

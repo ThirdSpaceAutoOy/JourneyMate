@@ -40,7 +40,7 @@ public class NotificationBuilder {
             title = notificationTitle;
         }
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).
-                notify(0, new Builder(context).setSmallIcon(R.mipmap.ic_launcher).
+                notify(0, new Builder(context).setSmallIcon(R.mipmap.ic_tsa).
                         setContentTitle(title).setAutoCancel(true).
                         setPriority(1).
                         setVibrate(new long[]{1000, 1000, 1000, 1000, 1000}).
